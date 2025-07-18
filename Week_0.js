@@ -9,11 +9,9 @@ function getWeatherData(city, callback) {
 
     https.get(apiUrl, (res) => {
         let data = '';
-
         res.on('data', chunk => {
             data += chunk;
         });
-
         res.on('end', () => {
             if (res.statusCode === 200) {
                 try {
@@ -43,7 +41,7 @@ const server = http.createServer((req, res) => {
             res.end(JSON.stringify({ error: 'City query parameter is required' }));
             return;
         }
-
+// handling the errors
         getWeatherData(city, (err, weatherData) => {
             if (err) {
                 res.writeHead(500, { 'Content-Type': 'application/json' });
